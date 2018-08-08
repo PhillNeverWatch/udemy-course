@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveGrameTrigger : MonoBehaviour {
+public class SaveGameTrigger : MonoBehaviour
+{
+
+    public string TriggerId = "";
 
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Jetzt speichern.");
-        var savegame = new SaveGameData();
-        savegame.save();
+        var savegame = SaveGameData.current;
+
+        if (savegame.lastTriggerId != TriggerId)
+        {
+            savegame.lastTriggerId = TriggerId;
+            savegame.save();
+        }
+        else
+        {
+            Debug.Log($"Der Speicherpunkt {TriggerId} hat bereits gespeichert. Überspringe Speichern.");
+        }
     }
 
     private void OnDrawGizmos()

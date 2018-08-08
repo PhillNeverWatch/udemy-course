@@ -6,6 +6,6 @@ public class LevelManager : MonoBehaviour {
 
     private void Awake()
     {
-        SaveGameData.load();
+        SaveGameData.current = SaveGameData.load();
     }
 }
